@@ -1,0 +1,16 @@
+export const asiaCountries = [
+  "Bali",
+  "Cambodia",
+  "Georgia",
+  "India",
+  "Indonesia",
+  "Japan",
+  "Malaysia",
+  "Myanmar",
+  "Nepal",
+  "South Korea",
+  "Sri Lanka",
+  "Siberia",
+  "Thailand",
+  "Vietnam",
+];
