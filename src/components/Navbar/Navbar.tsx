@@ -78,7 +78,7 @@ const Navbar = () => {
             <NavLink className={`${styles["link-element"]}`} to="/">
               Hotels
             </NavLink>
-            <NavLink className={`${styles["link-element"]}`} to="/">
+            <NavLink className={`${styles["link-element"]}`} to="/login">
               Login
             </NavLink>
           </div>

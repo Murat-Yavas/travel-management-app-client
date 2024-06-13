@@ -1,0 +1,21 @@
+.auth {
+  min-height: calc(100vh - 56px);
+  background-image: url("../../assets/trip.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: 100%;
+  object-fit: cover;
+  padding-top: 5rem;
+}
+
+.auth-form {
+  width: 30%;
+  margin: auto;
+  padding: 2rem 3rem;
+  border: 1px solid black;
+  backdrop-filter: blur(2px);
+  -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+}
