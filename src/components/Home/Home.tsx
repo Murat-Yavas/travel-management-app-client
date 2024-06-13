@@ -26,8 +26,14 @@ import { northAmericaCountries } from "../../helpers/Countries/North-America";
 import { latinAmericaCountries } from "../../helpers/Countries/Latin-America";
 import { polarCountries } from "../../helpers/Countries/Polar";
 import { australiaCountries } from "../../helpers/Countries/Australia";
+import europe2 from "../../assets/europe2.jpg";
+import { useAppSelector } from "../../redux/hooks";
 
 const Home = () => {
+  const { tours } = useAppSelector((state) => state.tour);
+
+  console.log(tours);
+
   return (
     <>
       <div className="container mx-auto bg-lime-50 rounded-lg  mt-8">
@@ -65,6 +71,7 @@ const Home = () => {
         </p>
 
         <div className="grid gap-4 grid-cols-4 grid-rows-3 main-padding">
+          <CountryCard img={europe2} country="Europe" />
           <CountryCard img={img1} country="Turkiye" />
           <CountryCard img={img2} country="Germany" />
           <CountryCard img={img3} country="Italy" />
