@@ -1,0 +1,27 @@
+.section-heading {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.footer-element {
+  width: fit-content;
+  margin-bottom: 13px;
+  height: 26px;
+}
+
+.footer-element:hover {
+  cursor: pointer;
+  border-bottom: 4px solid greenyellow;
+}
+
+.footer-icon {
+  margin-bottom: 5px;
+  width: fit-content;
+  padding: 8px;
+}
+
+.footer-icon:hover {
+  cursor: pointer;
+  background-color: rgb(150, 251, 0);
+  border-radius: 50%;
+}

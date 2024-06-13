@@ -30,8 +30,8 @@ import { australiaCountries } from "../../helpers/Countries/Australia";
 const Home = () => {
   return (
     <>
-      <div className="container mx-auto bg-lime-50 rounded-lg p-1 mt-8">
-        <form>
+      <div className="container mx-auto bg-lime-50 rounded-lg  mt-8">
+        <form className="main-padding">
           <div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
             <input
               className="text-base text-gray-400 flex-grow outline-none px-2 "
