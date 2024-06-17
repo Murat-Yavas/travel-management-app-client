@@ -27,13 +27,8 @@ import { latinAmericaCountries } from "../../helpers/Countries/Latin-America";
 import { polarCountries } from "../../helpers/Countries/Polar";
 import { australiaCountries } from "../../helpers/Countries/Australia";
 import europe2 from "../../assets/europe2.jpg";
-import { useAppSelector } from "../../redux/hooks";
 
 const Home = () => {
-  const { tours } = useAppSelector((state) => state.tour);
-
-  console.log(tours);
-
   return (
     <>
       <div className="container mx-auto bg-lime-50 rounded-lg  mt-8">

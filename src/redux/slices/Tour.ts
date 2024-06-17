@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Tour {
+export interface Tour {
   id: number;
   country: string;
   name: string;
@@ -8,6 +8,7 @@ interface Tour {
   days: number;
   addOns: string[];
   groupSize: number;
+  tourImage: string;
   ageRange: number[];
   cost: number;
   operatedIn: string;
