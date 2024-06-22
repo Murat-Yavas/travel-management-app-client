@@ -10,5 +10,6 @@ export const filteredElements = (arr: any[]) => {
 };
 
 export const findCity = (tour: Tour, city: string) => {
+  if (city === "") return false;
   return tour.routes.includes(city);
 };

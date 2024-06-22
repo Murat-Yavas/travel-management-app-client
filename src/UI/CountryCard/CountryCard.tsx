@@ -18,7 +18,7 @@ const CountryCard = ({ img, country }: CountryCardProps) => {
   return (
     <>
       <NavLink
-        to={`/country?countryName=${country}`}
+        to={`/tours/country?countryName=${country}`}
         onClick={() => getTours(country)}
         className={`${styles["image-container"]} max-w-96 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
       >

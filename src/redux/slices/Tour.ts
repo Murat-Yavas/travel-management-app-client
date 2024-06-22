@@ -5,6 +5,7 @@ export interface Tour {
   country: string;
   name: string;
   routes: string[];
+  tourStartDate: string[];
   days: number;
   addOns: string[];
   groupSize: number;
@@ -17,10 +18,26 @@ export interface Tour {
 
 interface TourState {
   tours: Tour[];
+  tour: Tour;
 }
 
 const initialState: TourState = {
   tours: [],
+  tour: {
+    id: 0,
+    country: "",
+    name: "",
+    routes: [],
+    tourStartDate: [],
+    days: 0,
+    addOns: [],
+    groupSize: 0,
+    tourImage: "",
+    ageRange: [],
+    cost: 0,
+    operatedIn: "",
+    paymentDetails: "",
+  },
 };
 
 const tourSlice = createSlice({
@@ -29,6 +46,14 @@ const tourSlice = createSlice({
   reducers: {
     getToursByCountry: (state, action: PayloadAction<Tour[]>) => {
       state.tours = action.payload;
+    },
+
+    getToursByContinent: (state, action: PayloadAction<Tour[]>) => {
+      state.tours = action.payload;
+    },
+
+    getOneTour: (state, action: PayloadAction<Tour>) => {
+      state.tour = action.payload;
     },
   },
 });

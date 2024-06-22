@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchToursByCountry } from "../../redux/api/TourApiCall";
+import {
+  fetchToursByContinent,
+  fetchToursByCountry,
+} from "../../redux/api/TourApiCall";
 import styles from "./CountryTourDetails.module.css";
 import "../../Variables.css";
 import { filteredElements, findCity } from "../../helpers/General";
 import { Tour } from "../../redux/slices/Tour";
 
-const CountryTourDetails = () => {
+interface CountryTourDetailsProps {
+  isContinentPage?: boolean;
+}
+
+const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
   const { tours } = useAppSelector((state) => state.tour);
   const dispatch = useAppDispatch();
 
@@ -17,6 +24,15 @@ const CountryTourDetails = () => {
   const [day, setDay] = useState("");
   const [filteredArray, setFilteredArray] = useState<Tour[]>([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const country = searchParams.get("countryName");
+  const continent = searchParams.get("continentName");
+
+  useEffect(() => {
+    if (isContinentPage) fetchToursByContinent(dispatch, continent!);
+    else fetchToursByCountry(dispatch, country!);
+  }, []);
+
   useEffect(() => {
     setFilteredArray(tours);
   }, [tours]);
@@ -25,10 +41,25 @@ const CountryTourDetails = () => {
     if (minPrice !== "" || maxPrice !== "" || city !== "" || day !== "") {
       const newArray: Tour[] = [];
       tours.map((tour) => {
+        // console.log(
+        //   tour.cost <= parseInt(maxPrice) && tour.cost >= parseInt(minPrice)
+        // );
+        // console.log(
+        //   day === "" && parseInt(day) <= 13
+        //     ? tour.days === parseInt(day)
+        //     : tour.days >= 14
+        // );
+        // console.log(findCity(tour, city));
+        // console.log(tour.name);
+
         if (
           (tour.cost <= parseInt(maxPrice) &&
             tour.cost >= parseInt(minPrice)) ||
-          (tour.days <= 13 ? tour.days === parseInt(day) : parseInt(day)) ||
+          (day === ""
+            ? false
+            : true && parseInt(day) <= 13
+            ? tour.days === parseInt(day)
+            : tour.days >= 14) ||
           findCity(tour, city)
         ) {
           newArray.push(tour);
@@ -37,13 +68,6 @@ const CountryTourDetails = () => {
       setFilteredArray(newArray);
     } else setFilteredArray(tours);
   };
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const country = searchParams.get("countryName");
-
-  useEffect(() => {
-    fetchToursByCountry(dispatch, country!);
-  }, []);
 
   const handleClearFilters = () => {
     setMinPrice("min");
@@ -110,7 +134,7 @@ const CountryTourDetails = () => {
                         <option value="999">999</option>
                         <option value="1499">1499</option>
                         <option value="1999">1999</option>
-                        <option value="2599">2599</option>
+                        <option value="2599">2499</option>
                         <option value="2999">2999</option>
                       </select>
                       <svg
@@ -214,7 +238,7 @@ const CountryTourDetails = () => {
                   </div>
                   <button
                     onClick={handleFilter}
-                    className="w-full py-2.5 flex items-center justify-center gap-2 rounded-full bg-indigo-600 text-white font-semibold text-xs shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-200  "
+                    className="w-full py-2.5 flex items-center justify-center gap-2 rounded-full bg-lime-300 text-white font-semibold text-xs shadow-sm shadow-transparent transition-all duration-500 hover:bg-lime-500 hover:shadow-indigo-200  "
                     disabled={
                       minPrice === "" &&
                       maxPrice === "" &&
@@ -224,25 +248,10 @@ const CountryTourDetails = () => {
                         : false
                     }
                   >
-                    <svg
-                      width="17"
-                      height="16"
-                      viewBox="0 0 17 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M14.4987 13.9997L13.1654 12.6663M13.832 7.33301C13.832 10.6467 11.1457 13.333 7.83203 13.333C4.51832 13.333 1.83203 10.6467 1.83203 7.33301C1.83203 4.0193 4.51832 1.33301 7.83203 1.33301C11.1457 1.33301 13.832 4.0193 13.832 7.33301Z"
-                        stroke="white"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
                     Search
                   </button>
                   <span
-                    className="flex justify-center mt-4 "
+                    className={`${styles["clear-filter-button"]} hover:text-lime-500`}
                     onClick={handleClearFilters}
                   >
                     Clear filters
@@ -254,79 +263,104 @@ const CountryTourDetails = () => {
           </div>
         </section>
       </div>
+
       <div className={`${styles["tour-cards"]}  flex-auto w-9/12`}>
-        {filteredArray.map((tour) => (
-          <div key={tour.id} className={`${styles["tour-card-element"]} flex`}>
+        {tours.length === 0 ? (
+          <h1 className="text-center mt-8 text-2xl">Sorry! No result</h1>
+        ) : (
+          filteredArray.map((tour) => (
             <div
-              className={`${styles["tour-image-container"]} flex-auto w-4/12`}
+              key={tour.id}
+              className={`${styles["tour-card-element"]} flex`}
             >
-              <img className={`${styles["tour-image"]}`} src={tour.tourImage} />
-            </div>
-            <div className={`${styles["tour-info"]} flex flex-auto w-8/12`}>
-              <div className={`${styles["left-section"]} flex-auto w-6/12`}>
-                <NavLink to="/" className={styles["tour-name"]}>
-                  {tour.name}
-                </NavLink>
-                <div className={`${styles["section-element"]}`}>
-                  <div>
-                    <span className={`${styles["element-title"]}`}>
-                      Destiantions
-                    </span>
-                  </div>
-                  <div>
-                    <span>
-                      {tour.routes[0]}, {tour.routes[1]}, +
-                      {tour.routes.length - 2} more
-                    </span>
-                  </div>
-                </div>
-                <div className={`${styles["section-element"]}`}>
-                  <div>
-                    <span className={`${styles["element-title"]}`}>
-                      Age Range
-                    </span>
-                  </div>
-                  <div>
-                    <span>
-                      {tour.ageRange[0]} to {tour.ageRange[1]} years old
-                    </span>
-                  </div>
-                </div>
-                <div className={`${styles["section-element"]}`}>
-                  <div>
-                    <span className={`${styles["element-title"]}`}>
-                      Operated In
-                    </span>
-                  </div>
-                  <div>
-                    <span>{tour.operatedIn}</span>
-                  </div>
-                </div>
-                <div></div>
+              <div
+                className={`${styles["tour-image-container"]} flex-auto w-4/12`}
+              >
+                <img
+                  className={`${styles["tour-image"]}`}
+                  src={tour.tourImage}
+                />
               </div>
-              <div className={`${styles["right-section"]} flex-auto w-6/12`}>
-                <div className={`${styles["section-element"]}`}>
-                  <div>
-                    <span className={`${styles["element-title"]}`}>
-                      Duration
-                    </span>
-                  </div>
-                  <div>
-                    <span>{tour.days} days</span>
-                  </div>
+
+              <div
+                className={`${styles["tour-info"]} flex flex-auto flex-col w-8/12`}
+              >
+                <div className="w-full">
+                  <NavLink
+                    to={`/tours/${tour.id}`}
+                    className={`${styles["tour-name"]}`}
+                  >
+                    {tour.name}
+                  </NavLink>
                 </div>
-                <div className={`${styles["section-element"]}`}>
-                  <div>
-                    <span className={`${styles["element-title"]}`}>Price</span>
+                <div className="flex">
+                  <div className={`${styles["left-section"]} flex-auto w-8/12`}>
+                    <div className={`${styles["section-element"]}`}>
+                      <div>
+                        <span className={`${styles["element-title"]}`}>
+                          Destiantions
+                        </span>
+                      </div>
+                      <div>
+                        <span>
+                          {tour.routes[0]}, {tour.routes[1]}, +
+                          {tour.routes.length - 2} more
+                        </span>
+                      </div>
+                    </div>
+                    <div className={`${styles["section-element"]}`}>
+                      <div>
+                        <span className={`${styles["element-title"]}`}>
+                          Age Range
+                        </span>
+                      </div>
+                      <div>
+                        <span>
+                          {tour.ageRange[0]} to {tour.ageRange[1]} years old
+                        </span>
+                      </div>
+                    </div>
+                    <div className={`${styles["section-element"]}`}>
+                      <div>
+                        <span className={`${styles["element-title"]}`}>
+                          Operated In
+                        </span>
+                      </div>
+                      <div>
+                        <span>{tour.operatedIn}</span>
+                      </div>
+                    </div>
+                    <div></div>
                   </div>
-                  <div>
-                    <span>&#36; {tour.cost}</span>
+                  <div
+                    className={`${styles["right-section"]} flex-auto w-4/12`}
+                  >
+                    <div className={`${styles["section-element"]}`}>
+                      <div>
+                        <span className={`${styles["element-title"]}`}>
+                          Duration
+                        </span>
+                      </div>
+                      <div>
+                        <span>{tour.days} days</span>
+                      </div>
+                    </div>
+                    <div className={`${styles["section-element"]}`}>
+                      <div>
+                        <span className={`${styles["element-title"]}`}>
+                          Price
+                        </span>
+                      </div>
+                      <div>
+                        <span>&#36; {tour.cost}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
