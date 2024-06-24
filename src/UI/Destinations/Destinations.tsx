@@ -35,7 +35,7 @@ const Destinations = ({
         {countries.map((country, index) => (
           <NavLink
             key={index}
-            to={`/country?countryName=${country}`}
+            to={`/tours/country?countryName=${country}`}
             className={`${styles["country-name"]}`}
           >
             {country}

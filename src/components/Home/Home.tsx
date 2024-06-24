@@ -27,21 +27,38 @@ import { latinAmericaCountries } from "../../helpers/Countries/Latin-America";
 import { polarCountries } from "../../helpers/Countries/Polar";
 import { australiaCountries } from "../../helpers/Countries/Australia";
 import europe2 from "../../assets/europe2.jpg";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const [selectValue, setSelectValue] = useState("tours");
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (selectValue === "tours")
+      navigate(`/tours/country?countryName=${input}`);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className="container mx-auto bg-lime-50 rounded-lg  mt-8">
-        <form className="main-padding">
+        <form className="main-padding" onSubmit={(e) => handleSubmit(e)}>
           <div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
             <input
+              onChange={(e) => setInput(e.target.value)}
               className="text-base text-gray-400 flex-grow outline-none px-2 "
               type="text"
-              placeholder="Search countries, cities..."
+              placeholder="Search countries..."
             />
             <div className="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
               <select
                 id="Com"
+                onChange={(e) => setSelectValue(e.target.value)}
                 className="text-base text-gray-800 outline-none border-2 border-lime-300 px-4 py-2 rounded-lg"
               >
                 <option value="tours" defaultValue="Tours">
@@ -49,7 +66,10 @@ const Home = () => {
                 </option>
                 <option value="hotels">Hotels</option>
               </select>
-              <button className="bg-lime-300 text-white text-base rounded-lg px-4 py-2 font-thin">
+              <button
+                onClick={handleSearch}
+                className="bg-lime-300 text-white text-base rounded-lg px-4 py-2 font-thin"
+              >
                 Search
               </button>
             </div>
