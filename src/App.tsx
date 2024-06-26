@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import CountryTourDetailsPage from "./pages/CountryTourDetailsPage";
 import SingleTourDetailsPage from "./pages/SingleTourDetailsPage";
+import HotelsPage from "./pages/HotelsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,12 +19,16 @@ function App() {
           element: <CountryTourDetailsPage />,
         },
         {
-          path: "/continent",
+          path: "/tours/continent",
           element: <CountryTourDetailsPage isContinentPage={true} />,
         },
         {
           path: "/tours/:id",
           element: <SingleTourDetailsPage />,
+        },
+        {
+          path: "/hotels",
+          element: <HotelsPage />,
         },
         { path: "/login", element: <AuthPage /> },
       ],

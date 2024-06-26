@@ -1,0 +1,9 @@
+.clear-filter-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.clear-filter-button:hover {
+  cursor: pointer;
+}

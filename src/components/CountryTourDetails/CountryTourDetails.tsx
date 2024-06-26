@@ -160,7 +160,7 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                     </div>
 
                     <label
-                      htmlFor="countries"
+                      htmlFor="cities"
                       className="block mb-2 text-sm font-medium text-gray-600 w-full"
                     >
                       City
@@ -198,7 +198,7 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                       </svg>
                     </div>
                     <label
-                      htmlFor="countries"
+                      htmlFor="duration"
                       className="block mb-2 text-sm font-medium text-gray-600 w-full"
                     >
                       Duration

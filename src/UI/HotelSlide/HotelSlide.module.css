@@ -1,0 +1,77 @@
+.hotel-card {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.hotel-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+}
+
+.hotel-name {
+  width: fit-content;
+  height: 33px;
+  margin-left: 1rem;
+}
+
+.hotel-name:hover {
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.favorite-button {
+  width: fit-content;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.favorite-button:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.75);
+}
+
+.hotel-properties-mid-section {
+  margin-left: 1rem;
+}
+
+.hotel-properties-right-section {
+  margin-left: 1rem;
+}
+
+.property-element {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.hotel-info-slide {
+  border-top: 1px solid black;
+}
+
+.amenities-section {
+  border-top: 1px solid black;
+}
+
+.contact-section {
+  border-bottom: 1px solid black;
+}
+
+.close-button-header {
+  padding: 5px;
+  font-weight: bold;
+}
+
+.footer-slide {
+  margin: 1rem 0 0 0;
+}
+
+.close-button-footer {
+  padding: 8px;
+  color: white;
+  border-radius: 8px;
+}
