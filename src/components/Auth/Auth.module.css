@@ -10,11 +10,11 @@
 }
 
 .auth-form {
-  width: 30%;
+  width: 50%;
   margin: auto;
   padding: 2rem 3rem;
   border: 1px solid black;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
   -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);

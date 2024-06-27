@@ -1,73 +1,233 @@
+import { useState } from "react";
 import styles from "./Auth.module.css";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { useAppDispatch } from "../../redux/hooks";
+import { createUser, logInUser } from "../../redux/api/UserApiCall";
 
 const Auth = () => {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [showInputMessage, setShowInputMessage] = useState("");
+  const dispatch = useAppDispatch();
+
+  const registerUser = () => {
+    if (
+      firstname === "" ||
+      lastname === "" ||
+      password === "" ||
+      email === "" ||
+      phoneNumber === ""
+    ) {
+      setShowInputMessage("Inputs cannot be left blank!");
+    } else {
+      setShowInputMessage("");
+      const registerInfo = {
+        firstname,
+        lastname,
+        password,
+        email,
+        phoneNumber,
+      };
+      createUser(dispatch, registerInfo);
+    }
+  };
+
+  const signInUser = () => {
+    if (firstname === "" || password === "") {
+      setShowInputMessage("Inputs cannot be left blank!");
+    } else {
+      setShowInputMessage("");
+      const signInInfo = { firstname, password };
+      logInUser(dispatch, signInInfo);
+    }
+  };
+
+  const handleSubmit = (e: HTMLFormElement) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={`${styles["auth"]}`}>
       <div className={`${styles["auth-form"]} `}>
-        {/* <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"> */}
-        <form className="space-y-6" method="POST">
-          <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-bold leading-6 text-gray-900"
-            >
-              Username
-            </label>
-            <div className="mt-2">
+        {!isRegistered ? (
+          <>
+            <div className="text-red-700">{showInputMessage}</div>
+            <div className="flex items-center justify-between max-w-80 h-7 my-4">
+              <span>Don't have an account?</span>
+              <span>
+                <FaArrowRightLong />
+              </span>
+              <span
+                className={`${styles["header-button"]} cursor-pointer hover:text-lime-300`}
+                onClick={() => setIsRegistered(true)}
+              >
+                REGISTER
+              </span>
+            </div>
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-3 block text-base font-medium text-[#07074D]"
+              >
+                First Name
+              </label>
               <input
-                id="username"
-                name="username"
+                onChange={(e) => setFirstname(e.target.value)}
+                value={firstname}
                 type="text"
-                required
-                className="block w-full rounded-md bg-transparent border border-lime-300 
-                    py-2 px-4 focus:outline-none 
-                   focus:border-lime-500"
+                name="name"
+                id="name"
+                placeholder="First Name"
+                className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
               />
             </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
+            <div className="mb-5">
               <label
                 htmlFor="password"
-                className="block text-sm font-bold leading-6 text-gray-900"
+                className="mb-3 block text-base font-medium text-[#07074D]"
               >
                 Password
               </label>
-            </div>
-            <div className="mt-2">
               <input
-                id="password"
-                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 type="password"
-                required
-                className="block w-full rounded-md bg-transparent border border-lime-300 
-                    py-2 px-4 focus:outline-none 
-                   focus:border-lime-500"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
               />
             </div>
-          </div>
 
-          <div>
-            <button
-              type="submit"
-              className="flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-black duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Login
-            </button>
-          </div>
+            <div className="mt-8">
+              <button
+                onClick={signInUser}
+                type="submit"
+                className="flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-lime-300 hover:text-white duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Login
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="text-red-700">{showInputMessage}</div>
+            <div className="flex items-center justify-between max-w-80 h-7 my-4">
+              <span>Already registered?</span>
+              <span>
+                <FaArrowRightLong />
+              </span>
+              <span
+                className={`${styles["header-button"]} cursor-pointer hover:text-lime-300`}
+                onClick={() => setIsRegistered(false)}
+              >
+                LOGIN
+              </span>
+            </div>
+            <div className="mb-5 flex justify-between">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  First Name
+                </label>
+                <input
+                  onChange={(e) => setFirstname(e.target.value)}
+                  value={firstname}
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="First Name"
+                  className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Last Name
+                </label>
+                <input
+                  onChange={(e) => setLastname(e.target.value)}
+                  value={lastname}
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Last Name"
+                  className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="phone"
+                className="mb-3 block text-base font-medium text-[#07074D]"
+              >
+                Phone Number
+              </label>
+              <input
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
+                type="text"
+                name="phone"
+                id="phone"
+                placeholder="Enter your phone number"
+                className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="email"
+                className="mb-3 block text-base font-medium text-[#07074D]"
+              >
+                Email Address
+              </label>
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
+              />
+            </div>
 
-          <div>
-            <p className="mt-8 font-bold">Don't have an account?</p>
-            <button
-              type="submit"
-              className="mt-2 flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:text-black duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
-        {/* </div> */}
+            <div className="mb-5">
+              <label
+                htmlFor="password"
+                className="mb-3 block text-base font-medium text-[#07074D]"
+              >
+                Password
+              </label>
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                className="w-full rounded-md border border-lime-300 bg-transparent py-3 px-6 text-base font-medium text-black outline-none focus:border-lime-300 focus:shadow-md"
+              />
+            </div>
+
+            <div className="mt-8">
+              <button
+                onClick={registerUser}
+                type="submit"
+                className="flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-lime-300 hover:text-white duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Register
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

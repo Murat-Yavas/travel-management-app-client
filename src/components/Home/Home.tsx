@@ -31,13 +31,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [selectValue, setSelectValue] = useState("tours");
   const [input, setInput] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (selectValue === "tours")
+    if (input === "") navigate("/");
+    else {
       navigate(`/tours/country?countryName=${input}`);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,21 +57,11 @@ const Home = () => {
               placeholder="Search countries..."
             />
             <div className="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
-              <select
-                id="Com"
-                onChange={(e) => setSelectValue(e.target.value)}
-                className="text-base text-gray-800 outline-none border-2 border-lime-300 px-4 py-2 rounded-lg"
-              >
-                <option value="tours" defaultValue="Tours">
-                  Tours
-                </option>
-                <option value="hotels">Hotels</option>
-              </select>
               <button
                 onClick={handleSearch}
                 className="bg-lime-300 text-white text-base rounded-lg px-4 py-2 font-thin"
               >
-                Search
+                Get Tours
               </button>
             </div>
           </div>
