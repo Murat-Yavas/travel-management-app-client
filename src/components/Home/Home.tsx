@@ -27,12 +27,15 @@ import { latinAmericaCountries } from "../../helpers/Countries/Latin-America";
 import { polarCountries } from "../../helpers/Countries/Polar";
 import { australiaCountries } from "../../helpers/Countries/Australia";
 import europe2 from "../../assets/europe2.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loadUser } from "../../redux/api/UserApiCall";
+import { useAppDispatch } from "../../redux/hooks";
 
 const Home = () => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleSearch = () => {
     if (input === "") navigate("/");
@@ -44,6 +47,10 @@ const Home = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    loadUser(dispatch);
+  }, []);
 
   return (
     <>

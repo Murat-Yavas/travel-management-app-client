@@ -1,8 +1,21 @@
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import "../../Variables.css";
+import { useState } from "react";
+import { CgProfile } from "react-icons/cg";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { userActions } from "../../redux/slices/User";
 
 const Navbar = () => {
+  const [showProfileMenu, setShowProfileMenu] = useState(true);
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(userActions.exitFromProfile());
+    localStorage.clear();
+  };
+
   return (
     <>
       <div>
@@ -18,9 +31,33 @@ const Navbar = () => {
             <NavLink className={`${styles["link-element"]}`} to="/hotels">
               Hotels
             </NavLink>
-            <NavLink className={`${styles["link-element"]}`} to="/login">
-              Login
-            </NavLink>
+            {user.id !== 0 ? (
+              <>
+                <span
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  className={`${styles["link-element"]} ${styles["profile-link"]} hover:cursor-pointer`}
+                >
+                  <CgProfile />
+                </span>
+                {showProfileMenu ? (
+                  <div className={`${styles["profile-menu"]}`}>
+                    <span className={`${styles["menu-element"]}`}>Profile</span>
+                    <span
+                      onClick={handleLogout}
+                      className={`${styles["menu-element"]}`}
+                    >
+                      Logout
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </>
+            ) : (
+              <NavLink className={`${styles["link-element"]}`} to="/login">
+                Login
+              </NavLink>
+            )}
           </div>
         </nav>
       </div>

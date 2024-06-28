@@ -18,9 +18,8 @@ export const createUser = async (
       },
       body: JSON.stringify(registerInfo),
     });
-    if (!response.ok) throw new Error("Failed to fetch tours");
+    if (!response.ok) throw new Error("Failed to register");
     const result = await response.json();
-    console.log(result);
   } catch (error) {
     console.log(error);
   }
@@ -33,6 +32,7 @@ export const logInUser = async (
     password: string;
   }
 ) => {
+  dispatch(userActions.toggleIsLoginLoading(true));
   try {
     const response = await fetch(`http://localhost:8081/users/auth/login`, {
       method: "POST",
@@ -41,9 +41,30 @@ export const logInUser = async (
       },
       body: JSON.stringify(signInInfo),
     });
-    if (!response.ok) throw new Error("Failed to fetch tours");
+    if (!response.ok) throw new Error("Failed to login");
     const result = await response.json();
-    console.log(result);
+    localStorage.setItem("accessToken", result.accessToken);
+    localStorage.setItem("userId", result.userId);
+    dispatch(userActions.toggleIsLoginLoading(false));
+    dispatch(userActions.toggleIsLoginError(false));
+  } catch (error) {
+    dispatch(userActions.toggleIsLoginLoading(false));
+    dispatch(userActions.toggleIsLoginError(true));
+  }
+};
+
+export const loadUser = async (dispatch: any) => {
+  try {
+    const response = await fetch("http://localhost:8081/users/10", {
+      method: "GET",
+      headers: <any>{
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
+      },
+    });
+    if (!response.ok) throw new Error("Failed to load user");
+    const result = await response.json();
+    dispatch(userActions.getUserInfo(result));
   } catch (error) {
     console.log(error);
   }

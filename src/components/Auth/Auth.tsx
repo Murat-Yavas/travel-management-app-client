@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styles from "./Auth.module.css";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { createUser, logInUser } from "../../redux/api/UserApiCall";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -12,7 +13,11 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showInputMessage, setShowInputMessage] = useState("");
+  const [buttonText, setButtonText] = useState<String | React.JSX.Element>(
+    "Login"
+  );
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const registerUser = () => {
     if (
@@ -33,21 +38,45 @@ const Auth = () => {
         phoneNumber,
       };
       createUser(dispatch, registerInfo);
+
+      alert("You have successfully registered. You can now login.");
     }
   };
 
   const signInUser = () => {
+    const spinner = (
+      <div
+        className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+        role="status"
+      ></div>
+    );
+    setButtonText(spinner);
+
     if (firstname === "" || password === "") {
       setShowInputMessage("Inputs cannot be left blank!");
     } else {
       setShowInputMessage("");
       const signInInfo = { firstname, password };
       logInUser(dispatch, signInInfo);
+
+      setTimeout(() => {
+        if (localStorage.getItem("accessToken") !== null) navigate("/");
+        else {
+          setButtonText("Login");
+          alert("You have entered wrong username or password");
+        }
+      }, 1000);
     }
   };
 
-  const handleSubmit = (e: HTMLFormElement) => {
-    e.preventDefault();
+  const goToLoginPage = () => {
+    setIsRegistered(true);
+    setShowInputMessage("");
+  };
+
+  const goToRegisterPage = () => {
+    setIsRegistered(false);
+    setShowInputMessage("");
   };
 
   return (
@@ -63,7 +92,7 @@ const Auth = () => {
               </span>
               <span
                 className={`${styles["header-button"]} cursor-pointer hover:text-lime-300`}
-                onClick={() => setIsRegistered(true)}
+                onClick={goToLoginPage}
               >
                 REGISTER
               </span>
@@ -105,11 +134,12 @@ const Auth = () => {
 
             <div className="mt-8">
               <button
+                disabled={firstname === "" || password === "" ? true : false}
                 onClick={signInUser}
                 type="submit"
-                className="flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-lime-300 hover:text-white duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center items-center h-11 rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-lime-300 hover:text-white duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Login
+                {buttonText}
               </button>
             </div>
           </>
@@ -123,7 +153,7 @@ const Auth = () => {
               </span>
               <span
                 className={`${styles["header-button"]} cursor-pointer hover:text-lime-300`}
-                onClick={() => setIsRegistered(false)}
+                onClick={goToRegisterPage}
               >
                 LOGIN
               </span>
@@ -219,6 +249,15 @@ const Auth = () => {
 
             <div className="mt-8">
               <button
+                disabled={
+                  firstname === "" ||
+                  lastname === "" ||
+                  password === "" ||
+                  email === "" ||
+                  phoneNumber === ""
+                    ? true
+                    : false
+                }
                 onClick={registerUser}
                 type="submit"
                 className="flex w-full justify-center rounded-md border border-lime-300 bg-custom-blue transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-lime-300 hover:text-white duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

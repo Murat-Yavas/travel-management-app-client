@@ -18,3 +18,27 @@
 .link-element:hover {
   color: rgb(84, 167, 87);
 }
+
+.profile-link {
+  position: relative;
+  font-size: 1.5rem;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  background: rgb(222, 220, 220);
+  padding: 8px;
+  position: absolute;
+  top: 45px;
+  right: 15px;
+}
+
+.menu-element {
+  margin-bottom: 8px;
+}
+
+.menu-element:hover {
+  cursor: pointer;
+  color: rgb(84, 167, 87);
+}
