@@ -43,8 +43,10 @@ const SingleTourDetails = () => {
   else if (isLoading) return <div>Loading...</div>;
   else
     return (
-      <div className="p-12 flex">
-        <div className={`${styles["tour-info"]} flex-auto w-9/12`}>
+      <div className="p-12 flex flex-col lg:flex-row">
+        <div
+          className={`${styles["tour-info"]} flex-auto w-9/12 lg:order-1 order-2`}
+        >
           <div className={`${styles["tour-header-info"]}`}>
             <div className={`${styles["tour-name"]}`}>{tour.name}</div>
             <div className={`${styles["info-text"]} flex`}>
@@ -116,24 +118,26 @@ const SingleTourDetails = () => {
             </div>
             {tour.tourStartDate.map((startDate, index) => (
               <div key={index} className={`${styles["tour-dates"]} mb-4`}>
-                <div className="flex justify-between items-center">
-                  <div className=" text-xl font-bold">{startDate}</div>
-                  <div className=" text-xl font-bold">
+                <div className="lg:flex justify-between items-center">
+                  <div className=" text-xl font-bold mb-2">{startDate}</div>
+                  <div className=" text-xl font-bold mb-2">
                     <FaRegArrowAltCircleRight />
                   </div>
-                  <div className=" text-xl font-bold">
+                  <div className=" text-xl font-bold mb-2">
                     {formatDate(startDate)}
                   </div>
-                  <div className=" text-xl font-bold">&#36;{tour.cost}</div>
+                  <div className=" text-xl font-bold mb-2">
+                    &#36;{tour.cost}
+                  </div>
                   <div>
                     <button
-                      className={`${styles["confirm-button"]} bg-lime-300 hover:bg-lime-500`}
+                      className={`${styles["confirm-button"]} mb-2 bg-lime-300 hover:bg-lime-500`}
                     >
                       Confirm Dates
                     </button>
                   </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center mb-2">
                   <TbWorldSearch className="mr-2" />
                   <div>English</div>
                 </div>
@@ -141,32 +145,38 @@ const SingleTourDetails = () => {
             ))}
           </div>
         </div>
-        <div className="flex-auto w-3/12">
+        <div className="flex-auto w-3/12 lg:order-2 order-1">
           <div
             className={`${styles["price-block"]} ${styles["info-card"]} p-4 `}
           >
-            <div>From</div>
-            <div className={`${styles["cost"]} mb-4`}>&#36; {tour.cost}</div>
-            <div className="flex items-center justify-between">
+            <div className={`${styles["block-element"]}`}>From</div>
+            <div
+              className={`${styles["cost"]} ${styles["block-element"]} mb-4`}
+            >
+              &#36; {tour.cost}
+            </div>
+            <div className="lg:flex items-center justify-between">
               <button
                 onClick={handleCheckAvailability}
-                className={`${styles["check-button"]} text-xl bg-lime-300 hover:bg-lime-500`}
+                className={`${styles["check-button"]} ${styles["block-element"]} text-xl bg-lime-300 hover:bg-lime-500`}
               >
                 Check Availability
               </button>
               <div
-                className={`${styles["favorite-button"]} text-lime-300`}
+                className={`${styles["favorite-button"]} ${styles["block-element"]} text-lime-300`}
                 title="Add to favorites"
               >
                 <MdOutlineFavorite />
               </div>
             </div>
-            <div>
+            <div className={`${styles["block-element"]}`}>
               <span className="font-bold mr-2">Mode of payment:</span>
               <span>{tour.paymentDetails}</span>
             </div>
 
-            <div className="flex items-center my-4">
+            <div
+              className={`${styles["block-element"]} flex items-center my-4`}
+            >
               <div className="mr-2 text-xl">
                 <GiTwoCoins />
               </div>
@@ -175,13 +185,15 @@ const SingleTourDetails = () => {
                 interest-free instalments.
               </div>
             </div>
-            <div className="flex items-center mb-4">
+            <div
+              className={`${styles["block-element"]} flex items-center mb-4`}
+            >
               <div className="mr-2 text-xl">
                 <TbArrowsSplit2 />
               </div>
-              <div>
+              <div className={`${styles["block-element"]}`}>
                 <span className="font-bold">Book once</span> and share the cost
-                with split payments.{" "}
+                with split payments.
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ const Destinations = ({
   continentName,
 }: DestinationsProps) => {
   return (
-    <div className={`${styles.destination}`}>
+    <div className={`${styles.destination} mb-8 md:mb-0`}>
       <div className={`${styles["destination-header"]}`}>
         <img
           className={`${styles["destination-header-image"]} h-48 w-full`}

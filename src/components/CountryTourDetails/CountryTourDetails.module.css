@@ -49,3 +49,23 @@
 .clear-filter-button:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .tour-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tour-card-element {
+    border: 1px solid black;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-height: fit-content;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .input-icon {
+    display: none;
+  }
+}

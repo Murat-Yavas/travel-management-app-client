@@ -99,3 +99,16 @@
   border-radius: 30px;
   color: white;
 }
+
+@media screen and (max-width: 1024px) {
+  .info-card {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .block-element {
+    margin: 0 10px;
+  }
+}

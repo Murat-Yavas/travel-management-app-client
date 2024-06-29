@@ -15,3 +15,6 @@
 .destinations-title {
   font-size: 1.25rem;
 }
+
+@media screen and (min-width: 768px) {
+}

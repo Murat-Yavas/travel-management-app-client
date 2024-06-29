@@ -25,3 +25,9 @@
   background-color: rgb(150, 251, 0);
   border-radius: 50%;
 }
+
+@media screen and (max-width: 768px) {
+  .footer-element {
+    margin-bottom: 1rem;
+  }
+}

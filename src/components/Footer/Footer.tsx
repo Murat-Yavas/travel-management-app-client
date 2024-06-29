@@ -7,7 +7,7 @@ import { FaYoutube } from "react-icons/fa";
 const Footer = () => {
   return (
     <div
-      className={`${styles.footer} grid gap-4 grid-cols-3 grid-rows-2 main-padding bg-slate-200 `}
+      className={`${styles.footer} grid gap-4 md:grid-cols-3 grid-cols-2 grid-rows-2 main-padding bg-slate-200 `}
     >
       <div className={`${styles["footer-section"]}`}>
         <div className={`${styles["section-heading"]}`}>Support</div>

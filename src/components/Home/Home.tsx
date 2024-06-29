@@ -56,17 +56,17 @@ const Home = () => {
     <>
       <div className="container mx-auto bg-lime-50 rounded-lg  mt-8">
         <form className="main-padding" onSubmit={(e) => handleSubmit(e)}>
-          <div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
+          <div className="flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
             <input
               onChange={(e) => setInput(e.target.value)}
-              className="text-base text-gray-400 flex-grow outline-none px-2 "
+              className="text-base text-gray-400 flex-grow outline-none px-2"
               type="text"
               placeholder="Search countries..."
             />
             <div className="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto ">
               <button
                 onClick={handleSearch}
-                className="bg-lime-300 text-white text-base rounded-lg px-4 py-2 font-thin"
+                className="bg-lime-300 text-white text-base rounded-lg px-4 py-2 font-thin "
               >
                 Get Tours
               </button>
@@ -83,7 +83,9 @@ const Home = () => {
           Choose from thousands of Organized Adventures
         </p>
 
-        <div className="grid gap-4 grid-cols-4 grid-rows-3 main-padding">
+        <div
+          className={`${styles["country-deals-cards"]} md:grid gap-4 grid-cols-4 grid-rows-3 main-padding`}
+        >
           <CountryCard img={europe2} country="Europe" />
           <CountryCard img={img1} country="Turkiye" />
           <CountryCard img={img2} country="Germany" />
@@ -106,7 +108,7 @@ const Home = () => {
           Book the World's Best Destinations
         </p>
         <div
-          className={`${styles["popular-destinations"]} main-padding grid gap-4 grid-cols-2 grid-rows-3 my-4`}
+          className={`${styles["popular-destinations"]} main-padding md:grid gap-4 grid-cols-2 grid-rows-3 my-4`}
         >
           <Destinations
             image={europe}

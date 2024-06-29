@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   gap: 20px;
-  margin: 0px auto;
+  margin: 8px auto;
 }
 
 .card-image {
@@ -31,4 +31,10 @@
 
 .image-container:hover .card-text {
   visibility: visible !important;
+}
+
+@media screen and (max-width: 768px) {
+  .card-image {
+    height: 280px;
+  }
 }

@@ -81,33 +81,110 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
   else if (isLoading) return <div>Loading...</div>;
   else
     return (
-      <div className={`${styles["tour-details"]} main-padding flex`}>
-        <div className={`${styles["filter-section"]} flex-auto w-3/12`}>
+      <div className={`${styles["tour-details"]} main-padding xl:flex`}>
+        <div className={`${styles["filter-section"]} flex-auto `}>
           <section className="py-24 relative">
-            <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
+            <div className="w-full mx-auto px-4 md:px-8">
               <div>
-                <div className="col-span-12 md:col-span-3 w-full max-md:max-w-md max-md:mx-auto">
-                  <div className="box rounded-xl border border-gray-300 bg-white p-6 w-full md:max-w-sm">
-                    <h6 className="font-medium text-base leading-7 text-black mb-5">
-                      Price
-                    </h6>
-                    <div className="flex items-center mb-5 gap-1">
-                      <div className="relative w-full">
+                <div className="w-full max-md:max-w-md max-md:mx-auto">
+                  <div className="box rounded-xl border border-gray-300 bg-white p-6 flex justify-between xl:flex-col ">
+                    <div>
+                      <h6 className="font-medium text-base leading-7 text-black mb-5">
+                        Price
+                      </h6>
+                      <div className="flex items-center mb-5 gap-1">
+                        <div className="relative w-full">
+                          <select
+                            value={minPrice}
+                            onChange={(e) => setMinPrice(e.target.value)}
+                            id="FROM"
+                            className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
+                          >
+                            <option value="">Min</option>
+                            <option value="0">0</option>
+                            <option value="150">150</option>
+                            <option value="300">300</option>
+                            <option value="500">500</option>
+                            <option value="700">700</option>
+                          </select>
+                          <svg
+                            className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12.0002 5.99845L8.00008 9.99862L3.99756 5.99609"
+                              stroke="#111827"
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <p className="px-1 font-normal text-sm leading-6 text-gray-600">
+                          to
+                        </p>
+                        <div className="relative w-full">
+                          <select
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                            id="FROM"
+                            className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
+                          >
+                            <option value="">Max</option>
+                            <option value="149">149</option>
+                            <option value="299">299</option>
+                            <option value="499">499</option>
+                            <option value="699">699</option>
+                            <option value="899">899</option>
+                          </select>
+                          <svg
+                            className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12.0002 5.99845L8.00008 9.99862L3.99756 5.99609"
+                              stroke="#111827"
+                              strokeWidth="1.6"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="cities"
+                        className="block mb-2 text-sm font-medium text-gray-600 w-full"
+                      >
+                        City
+                      </label>
+                      <div className="relative w-full mb-8">
                         <select
-                          value={minPrice}
                           id="FROM"
-                          onChange={(e) => setMinPrice(e.target.value)}
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
                           className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
                         >
-                          <option value="">Min</option>
-                          <option value="500">500</option>
-                          <option value="1000">1000</option>
-                          <option value="1500">1500</option>
-                          <option value="2000">2000</option>
-                          <option value="2500">2500</option>
+                          <option value="">Select City</option>
+
+                          {filteredElements(tours).map((tour, i) => (
+                            <option key={i} value={tour}>
+                              {tour}
+                            </option>
+                          ))}
                         </select>
                         <svg
-                          className="absolute top-1/2 -translate-y-1/2 right-4 z-50"
+                          className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
@@ -123,25 +200,36 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                           />
                         </svg>
                       </div>
-                      <p className="px-1 font-normal text-sm leading-6 text-gray-600">
-                        to
-                      </p>
-                      <div className="relative w-full">
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="duration"
+                        className="block mb-2 text-sm font-medium text-gray-600 w-full"
+                      >
+                        Duration
+                      </label>
+                      <div className="relative w-full mb-8">
                         <select
                           id="FROM"
-                          value={maxPrice}
-                          onChange={(e) => setMaxPrice(e.target.value)}
+                          value={day}
+                          onChange={(e) => setDay(e.target.value)}
                           className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
                         >
-                          <option value="">Max</option>
-                          <option value="999">999</option>
-                          <option value="1499">1499</option>
-                          <option value="1999">1999</option>
-                          <option value="2599">2499</option>
-                          <option value="2999">2999</option>
+                          <option value="">Select day</option>
+
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                          <option value="13">13</option>
+                          <option value="14">14+</option>
                         </select>
                         <svg
-                          className="absolute top-1/2 -translate-y-1/2 right-4 z-50"
+                          className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}
                           width="16"
                           height="16"
                           viewBox="0 0 16 16"
@@ -159,106 +247,20 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                       </div>
                     </div>
 
-                    <label
-                      htmlFor="cities"
-                      className="block mb-2 text-sm font-medium text-gray-600 w-full"
-                    >
-                      City
-                    </label>
-                    <div className="relative w-full mb-8">
-                      <select
-                        id="FROM"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
+                    <div>
+                      <button
+                        onClick={handleFilter}
+                        className="w-full py-2.5 flex items-center justify-center gap-2 rounded-full bg-lime-300 text-white font-semibold text-xs shadow-sm shadow-transparent transition-all duration-500 hover:bg-lime-500 hover:shadow-indigo-200  "
                       >
-                        <option value="">Select City</option>
-
-                        {filteredElements(tours).map((tour, i) => (
-                          <option key={i} value={tour}>
-                            {tour}
-                          </option>
-                        ))}
-                      </select>
-                      <svg
-                        className="absolute top-1/2 -translate-y-1/2 right-4 z-50"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        Search
+                      </button>
+                      <span
+                        onClick={handleClearFilters}
+                        className={`${styles["clear-filter-button"]} hover:text-lime-500`}
                       >
-                        <path
-                          d="M12.0002 5.99845L8.00008 9.99862L3.99756 5.99609"
-                          stroke="#111827"
-                          strokeWidth="1.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                        Clear filters
+                      </span>
                     </div>
-                    <label
-                      htmlFor="duration"
-                      className="block mb-2 text-sm font-medium text-gray-600 w-full"
-                    >
-                      Duration
-                    </label>
-                    <div className="relative w-full mb-8">
-                      <select
-                        id="FROM"
-                        value={day}
-                        onChange={(e) => setDay(e.target.value)}
-                        className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
-                      >
-                        <option value="">Select day</option>
-
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14+</option>
-                      </select>
-                      <svg
-                        className="absolute top-1/2 -translate-y-1/2 right-4 z-50"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12.0002 5.99845L8.00008 9.99862L3.99756 5.99609"
-                          stroke="#111827"
-                          strokeWidth="1.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <button
-                      onClick={handleFilter}
-                      className="w-full py-2.5 flex items-center justify-center gap-2 rounded-full bg-lime-300 text-white font-semibold text-xs shadow-sm shadow-transparent transition-all duration-500 hover:bg-lime-500 hover:shadow-indigo-200  "
-                      disabled={
-                        minPrice === "" &&
-                        maxPrice === "" &&
-                        day === "" &&
-                        city === ""
-                          ? true
-                          : false
-                      }
-                    >
-                      Search
-                    </button>
-                    <span
-                      className={`${styles["clear-filter-button"]} hover:text-lime-500`}
-                      onClick={handleClearFilters}
-                    >
-                      Clear filters
-                    </span>
                   </div>
                 </div>
                 <div className="col-span-12 md:col-span-9"></div>
@@ -266,7 +268,6 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
             </div>
           </section>
         </div>
-
         <div className={`${styles["tour-cards"]}  flex-auto w-9/12`}>
           {tours.length === 0 ? (
             <h1 className="text-center mt-8 text-2xl">Sorry! No result</h1>
@@ -296,7 +297,7 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                       {tour.name}
                     </NavLink>
                   </div>
-                  <div className="flex">
+                  <div className="md:flex">
                     <div
                       className={`${styles["left-section"]} flex-auto w-8/12`}
                     >

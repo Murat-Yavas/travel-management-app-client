@@ -42,3 +42,9 @@
   cursor: pointer;
   color: rgb(84, 167, 87);
 }
+
+/* @media screen and (max-width: 768px) {
+  .header-links {
+    display: none;
+  }
+} */

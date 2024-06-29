@@ -19,14 +19,14 @@ const HotelSlide = ({ hotel }: HotelProps) => {
           <img className={`${styles["hotel-image"]} `} src={hotel.hotelImage} />
         </div>
 
-        <div className=" flex-auto w-8/12">
+        <div className="flex-auto w-8/12">
           <div
             onClick={() => setIsShowOtherDetails(true)}
             className={`${styles["property-element"]} ${styles["hotel-name"]} text-2xl font-bold`}
           >
             {hotel.name}
           </div>
-          <div className="flex">
+          <div className="md:flex">
             <div
               className={`${styles["hotel-properties-mid-section"]} flex-auto w-8/12`}
             >
