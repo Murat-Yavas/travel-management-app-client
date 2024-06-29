@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import "../../Variables.css";
 import { useState } from "react";
@@ -7,13 +7,15 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { userActions } from "../../redux/slices/User";
 
 const Navbar = () => {
-  const [showProfileMenu, setShowProfileMenu] = useState(true);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(userActions.exitFromProfile());
     localStorage.clear();
+    navigate("/");
   };
 
   return (
@@ -41,7 +43,18 @@ const Navbar = () => {
                 </span>
                 {showProfileMenu ? (
                   <div className={`${styles["profile-menu"]}`}>
-                    <span className={`${styles["menu-element"]}`}>Profile</span>
+                    <NavLink
+                      to="/profile"
+                      className={`${styles["menu-element"]}`}
+                    >
+                      Profile
+                    </NavLink>
+                    <NavLink
+                      to="/favorites"
+                      className={`${styles["menu-element"]}`}
+                    >
+                      Favorites
+                    </NavLink>
                     <span
                       onClick={handleLogout}
                       className={`${styles["menu-element"]}`}

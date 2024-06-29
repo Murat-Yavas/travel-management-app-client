@@ -55,16 +55,66 @@ export const logInUser = async (
 
 export const loadUser = async (dispatch: any) => {
   try {
-    const response = await fetch("http://localhost:8081/users/10", {
-      method: "GET",
+    const response = await fetch(
+      `http://localhost:8081/users/${localStorage.getItem("userId")}`,
+      {
+        method: "GET",
+        headers: <any>{
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Failed to load user");
+    const result = await response.json();
+    dispatch(userActions.getUserInfo(result));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editUser = async (
+  dispatch: any,
+  userInfo: {
+    id: number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: string;
+  }
+) => {
+  try {
+    const response = await fetch(`http://localhost:8081/users/${userInfo.id}`, {
+      method: "PUT",
       headers: <any>{
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("accessToken"),
       },
+      body: JSON.stringify(userInfo),
     });
-    if (!response.ok) throw new Error("Failed to load user");
+    if (!response.ok) throw new Error("Failed to update user");
     const result = await response.json();
-    dispatch(userActions.getUserInfo(result));
+    dispatch(userActions.editUserInfo(result));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUser = async (dispatch: any) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8081/users/${localStorage.getItem("userId")}`,
+      {
+        method: "DELETE",
+        headers: <any>{
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Failed to update user");
+    const result = await response.json();
+    dispatch(userActions.deleteUserInfo());
   } catch (error) {
     console.log(error);
   }

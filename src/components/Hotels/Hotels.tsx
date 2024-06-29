@@ -57,8 +57,6 @@ const Hotels = () => {
     setFilteredArray(hotels);
   };
 
-  // console.log(filteredArray);
-
   return (
     <div className={`${styles["hotels-page"]} main-padding`}>
       <div className="flex">

@@ -1,0 +1,17 @@
+.sidebar {
+}
+
+.sidebar-element {
+  border-left: 4px solid transparent;
+}
+
+.sidebar-element:hover {
+  border-left: 4px solid black;
+  cursor: pointer;
+}
+
+.registered-options {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}

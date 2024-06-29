@@ -44,6 +44,20 @@ const userSlice = createSlice({
       };
     },
 
+    editUserInfo: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+
+    deleteUserInfo: (state) => {
+      state.user = {
+        id: 0,
+        firstname: "",
+        lastname: "",
+        email: "",
+        phoneNumber: "",
+      };
+    },
+
     toggleIsLoginLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoginLoading = action.payload;
     },

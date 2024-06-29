@@ -6,6 +6,7 @@ import AuthPage from "./pages/AuthPage";
 import CountryTourDetailsPage from "./pages/CountryTourDetailsPage";
 import SingleTourDetailsPage from "./pages/SingleTourDetailsPage";
 import HotelsPage from "./pages/HotelsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const router = createBrowserRouter([
@@ -31,6 +32,7 @@ function App() {
           element: <HotelsPage />,
         },
         { path: "/login", element: <AuthPage /> },
+        { path: "/profile", element: <ProfilePage /> },
       ],
     },
   ]);

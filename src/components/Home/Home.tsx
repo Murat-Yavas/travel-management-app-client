@@ -30,7 +30,7 @@ import europe2 from "../../assets/europe2.jpg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadUser } from "../../redux/api/UserApiCall";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const Home = () => {
   const [input, setInput] = useState("");
