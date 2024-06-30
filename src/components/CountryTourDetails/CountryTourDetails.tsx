@@ -268,7 +268,7 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
             </div>
           </section>
         </div>
-        <div className={`${styles["tour-cards"]}  flex-auto w-9/12`}>
+        <div className={`${styles["tour-cards"]}  flex-auto xl:w-9/12`}>
           {tours.length === 0 ? (
             <h1 className="text-center mt-8 text-2xl">Sorry! No result</h1>
           ) : (

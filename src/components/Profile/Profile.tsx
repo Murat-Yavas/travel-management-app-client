@@ -26,7 +26,7 @@ const Profile = () => {
     editUser(dispatch, userInfo);
   };
 
-  const hanleDelete = () => {
+  const handleDelete = () => {
     deleteUser(dispatch);
     dispatch(userActions.exitFromProfile());
     localStorage.clear();
@@ -34,8 +34,8 @@ const Profile = () => {
   };
 
   return (
-    <div className={`${styles["user-profile"]} flex px-52 py-8`}>
-      <div className={`${styles.sidebar} flex-auto w-4/12`}>
+    <div className={`${styles["user-profile"]} md:flex px-52 py-8`}>
+      <div className={`${styles.sidebar} flex-auto md:w-4/12`}>
         <div
           onClick={() => setSidebarOption("account")}
           className={`${styles["sidebar-element"]} ${
@@ -58,7 +58,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className={`${styles["main-content"]} flex-auto w-8/12`}>
+      <div className={`${styles["main-content"]} flex-auto md:w-8/12`}>
         {sidebarOption === "account" ? (
           <div className={`${styles["account-section"]}`}>
             <div>
@@ -111,7 +111,7 @@ const Profile = () => {
               </button>
 
               <span
-                onClick={hanleDelete}
+                onClick={handleDelete}
                 className="flex-auto w-4/12 hover:text-lime-300 hover:cursor-pointer"
               >
                 Delete my account

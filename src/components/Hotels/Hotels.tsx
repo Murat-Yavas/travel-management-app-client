@@ -241,7 +241,7 @@ const Hotels = () => {
             </div>
           </section>
         </div>
-        <div className={`${styles["hotel-details"]} flex-auto w-9/12`}>
+        <div className={`${styles["hotel-details"]} flex-auto xl:w-9/12`}>
           {filteredArray.map((hotel) => (
             <HotelSlide key={hotel.id} hotel={hotel} />
           ))}

@@ -15,6 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setShowHamburgerMenu(false);
     dispatch(userActions.exitFromProfile());
     localStorage.clear();
     navigate("/");
@@ -43,10 +44,15 @@ const Navbar = () => {
             </span>
             {showProfileMenu ? (
               <div className={`${styles["profile-menu"]}`}>
-                <NavLink to="/profile" className={`${styles["menu-element"]}`}>
+                <NavLink
+                  onClick={() => setShowProfileMenu(false)}
+                  to="/profile"
+                  className={`${styles["menu-element"]}`}
+                >
                   Profile
                 </NavLink>
                 <NavLink
+                  onClick={() => setShowProfileMenu(false)}
                   to="/favorites"
                   className={`${styles["menu-element"]}`}
                 >
@@ -75,10 +81,18 @@ const Navbar = () => {
         </span>
         {showHamburgerMenu ? (
           <div className={`${styles["profile-menu"]}`}>
-            <NavLink to="/" className={`${styles["menu-element"]}`}>
+            <NavLink
+              onClick={() => setShowHamburgerMenu(false)}
+              to="/"
+              className={`${styles["menu-element"]}`}
+            >
               Home
             </NavLink>
-            <NavLink to="/hotels" className={`${styles["menu-element"]}`}>
+            <NavLink
+              onClick={() => setShowHamburgerMenu(false)}
+              to="/hotels"
+              className={`${styles["menu-element"]}`}
+            >
               Hotels
             </NavLink>
 
@@ -90,7 +104,11 @@ const Navbar = () => {
                 Logout
               </span>
             ) : (
-              <NavLink to="/login" className={`${styles["menu-element"]}`}>
+              <NavLink
+                onClick={() => setShowHamburgerMenu(false)}
+                to="/login"
+                className={`${styles["menu-element"]}`}
+              >
                 Login
               </NavLink>
             )}
