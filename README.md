@@ -1,4 +1,4 @@
-A fullstack Travel Management System application created with React and tailwind. Have a look at [server side codes.](https://github.com/Murat-Yavas/Blog-Platform-App---Server)
+A fullstack Travel Management System application created with React and tailwind. Have a look at [server side codes.](https://github.com/Murat-Yavas/travel-management-system-server)
 
 # Technologies
 
