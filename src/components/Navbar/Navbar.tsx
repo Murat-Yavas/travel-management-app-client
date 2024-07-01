@@ -51,13 +51,7 @@ const Navbar = () => {
                 >
                   Profile
                 </NavLink>
-                <NavLink
-                  onClick={() => setShowProfileMenu(false)}
-                  to="/favorites"
-                  className={`${styles["menu-element"]}`}
-                >
-                  Favorites
-                </NavLink>
+
                 <span
                   onClick={handleLogout}
                   className={`${styles["menu-element"]}`}

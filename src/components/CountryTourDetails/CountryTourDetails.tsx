@@ -41,17 +41,6 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
     if (minPrice !== "" || maxPrice !== "" || city !== "" || day !== "") {
       const newArray: Tour[] = [];
       tours.map((tour) => {
-        // console.log(
-        //   tour.cost <= parseInt(maxPrice) && tour.cost >= parseInt(minPrice)
-        // );
-        // console.log(
-        //   day === "" && parseInt(day) <= 13
-        //     ? tour.days === parseInt(day)
-        //     : tour.days >= 14
-        // );
-        // console.log(findCity(tour, city));
-        // console.log(tour.name);
-
         if (
           (tour.cost <= parseInt(maxPrice) &&
             tour.cost >= parseInt(minPrice)) ||
@@ -89,7 +78,7 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                 <div className="w-full max-md:max-w-md max-md:mx-auto">
                   <div className="box rounded-xl border border-gray-300 bg-white p-6 flex justify-between xl:flex-col ">
                     <div>
-                      <h6 className="font-medium text-base leading-7 text-black mb-5">
+                      <h6 className="font-medium text-base leading-7 text-black">
                         Price
                       </h6>
                       <div className="flex items-center mb-5 gap-1">
@@ -102,10 +91,12 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                           >
                             <option value="">Min</option>
                             <option value="0">0</option>
-                            <option value="150">150</option>
-                            <option value="300">300</option>
-                            <option value="500">500</option>
-                            <option value="700">700</option>
+                            <option value="150">1000</option>
+                            <option value="300">1500</option>
+                            <option value="500">2000</option>
+                            <option value="700">2500</option>
+                            <option value="700">3000</option>
+                            <option value="700">3500</option>
                           </select>
                           <svg
                             className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}
@@ -135,11 +126,13 @@ const CountryTourDetails = ({ isContinentPage }: CountryTourDetailsProps) => {
                             className="h-12 border border-gray-300 text-gray-900 text-xs font-medium rounded-full block w-full py-2.5 px-4 appearance-none relative focus:outline-none bg-white"
                           >
                             <option value="">Max</option>
-                            <option value="149">149</option>
-                            <option value="299">299</option>
-                            <option value="499">499</option>
-                            <option value="699">699</option>
-                            <option value="899">899</option>
+                            <option value="149">999</option>
+                            <option value="299">1499</option>
+                            <option value="499">1999</option>
+                            <option value="699">2499</option>
+                            <option value="899">2999</option>
+                            <option value="899">3499</option>
+                            <option value="899">3999</option>
                           </select>
                           <svg
                             className={`${styles["input-icon"]} absolute top-1/2 -translate-y-1/2 right-4 z-50`}

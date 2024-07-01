@@ -8,6 +8,8 @@ export const createUser = async (
     password: string;
     email: string;
     phoneNumber: string;
+    userHotels: { hotelId: number }[];
+    userTours: any[];
   }
 ) => {
   try {
@@ -81,6 +83,8 @@ export const editUser = async (
     lastname: string;
     email: string;
     phoneNumber: string;
+    userHotels: { hotelId: number }[];
+    userTours: any[];
   }
 ) => {
   try {
@@ -115,6 +119,54 @@ export const deleteUser = async (dispatch: any) => {
     if (!response.ok) throw new Error("Failed to update user");
     const result = await response.json();
     dispatch(userActions.deleteUserInfo());
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const registerHotel = async (
+  dispatch: any,
+  userId: number,
+  hotelId: number
+) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8081/users/${userId}/hotel/${hotelId}`,
+      {
+        method: "PUT",
+        headers: <any>{
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Failed to update user");
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const registerTour = async (
+  dispatch: any,
+  userId: number,
+  tourId: number
+) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8081/users/${userId}/tour/${tourId}`,
+      {
+        method: "PUT",
+        headers: <any>{
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("accessToken"),
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Failed to update user");
+    const result = await response.json();
+    console.log(result);
   } catch (error) {
     console.log(error);
   }

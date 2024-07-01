@@ -13,10 +13,12 @@ import { FaAssistiveListeningSystems } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { TbWorldSearch } from "react-icons/tb";
 import moment from "moment";
+import { registerTour } from "../../redux/api/UserApiCall";
 
 const SingleTourDetails = () => {
   const dispatch = useAppDispatch();
   const { tour, isError, isLoading } = useAppSelector((state) => state.tour);
+  const { user } = useAppSelector((state) => state.user);
   const tourId = useParams();
   const dateSectionRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +41,10 @@ const SingleTourDetails = () => {
     dateSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleRegisterTour = (tourId: number) => {
+    registerTour(dispatch, user.id, tourId);
+  };
+
   if (isError) return <div>Something went wrong!</div>;
   else if (isLoading) return <div>Loading...</div>;
   else
@@ -47,8 +53,8 @@ const SingleTourDetails = () => {
         <div
           className={`${styles["tour-info"]} flex-auto w-9/12 lg:order-1 order-2`}
         >
-          <div className={`${styles["tour-header-info"]}`}>
-            <div className={`${styles["tour-name"]}`}>{tour.name}</div>
+          <div className={styles["tour-header-info"]}>
+            <div className={styles["tour-name"]}>{tour.name}</div>
             <div className={`${styles["info-text"]} flex`}>
               <div className="mr-12 font-bold">{tour.days} days</div>
               <div>
@@ -131,6 +137,7 @@ const SingleTourDetails = () => {
                   </div>
                   <div>
                     <button
+                      onClick={() => handleRegisterTour(tour.id)}
                       className={`${styles["confirm-button"]} mb-2 bg-lime-300 hover:bg-lime-500`}
                     >
                       Confirm Dates

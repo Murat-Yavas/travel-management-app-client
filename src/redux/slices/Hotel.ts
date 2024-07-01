@@ -15,10 +15,16 @@ export interface Hotel {
 
 interface HotelState {
   hotels: Hotel[];
+  registeredHotels: Hotel[];
+  isError: boolean;
+  isLoading: boolean;
 }
 
 const initialState: HotelState = {
   hotels: [],
+  registeredHotels: [],
+  isLoading: false,
+  isError: false,
 };
 
 const hotelSlice = createSlice({
@@ -27,6 +33,17 @@ const hotelSlice = createSlice({
   reducers: {
     getAllHotels: (state, action: PayloadAction<Hotel[]>) => {
       state.hotels = action.payload;
+    },
+
+    getRegisteredHotels: (state, action: PayloadAction<Hotel>) => {
+      state.registeredHotels.push(action.payload);
+    },
+
+    toggleIsError: (state, action: PayloadAction<boolean>) => {
+      state.isError = action.payload;
+    },
+    toggleIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
     },
   },
 });

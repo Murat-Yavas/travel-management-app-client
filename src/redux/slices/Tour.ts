@@ -21,6 +21,7 @@ interface TourState {
   tour: Tour;
   isError: boolean;
   isLoading: boolean;
+  registeredTours: Tour[];
 }
 
 const initialState: TourState = {
@@ -42,6 +43,7 @@ const initialState: TourState = {
   },
   isError: false,
   isLoading: false,
+  registeredTours: [],
 };
 
 const tourSlice = createSlice({
@@ -58,6 +60,10 @@ const tourSlice = createSlice({
 
     getOneTour: (state, action: PayloadAction<Tour>) => {
       state.tour = action.payload;
+    },
+
+    getRegisteredTours: (state, action: PayloadAction<Tour>) => {
+      state.registeredTours.push(action.payload);
     },
 
     toggleIsError: (state, action: PayloadAction<boolean>) => {

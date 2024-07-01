@@ -7,6 +7,19 @@
   cursor: pointer;
 }
 
+.registered-container {
+  display: flex;
+  border: 1px solid black;
+  margin: 1rem 0;
+  padding: 5px;
+}
+
+.registered-image {
+  border-radius: 5px;
+  width: 200px;
+  height: 100px;
+}
+
 .registered-options {
   width: 30%;
   display: flex;

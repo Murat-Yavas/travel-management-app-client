@@ -51,3 +51,15 @@ export const fetchOneTour = async (dispatch: any, tourId: string) => {
     dispatch(tourActions.toggleIsError(true));
   }
 };
+
+export const fetchRegisteredTours = async (dispatch: any, tourId: number) => {
+  try {
+    const response = await fetch(`http://localhost:8080/tours/${tourId}`);
+    if (!response.ok) throw new Error("Failed to fetch tours");
+    const result = await response.json();
+    // console.log(result);
+    dispatch(tourActions.getRegisteredTours(result));
+  } catch (error) {
+    console.log(error);
+  }
+};

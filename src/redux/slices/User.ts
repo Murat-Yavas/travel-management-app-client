@@ -6,6 +6,8 @@ interface User {
   lastname: string;
   email: string;
   phoneNumber: string;
+  userHotels: { hotelId: number }[];
+  userTours: { tourId: number }[];
 }
 
 interface UserState {
@@ -21,6 +23,8 @@ const initialState: UserState = {
     lastname: "",
     email: "",
     phoneNumber: "",
+    userHotels: [],
+    userTours: [],
   },
   isLoginLoading: false,
   isLoginError: false,
@@ -41,6 +45,8 @@ const userSlice = createSlice({
         lastname: "",
         email: "",
         phoneNumber: "",
+        userHotels: [],
+        userTours: [],
       };
     },
 
@@ -55,7 +61,16 @@ const userSlice = createSlice({
         lastname: "",
         email: "",
         phoneNumber: "",
+        userHotels: [],
+        userTours: [],
       };
+    },
+
+    registerHotelToUser: (
+      state,
+      action: PayloadAction<{ hotelId: number }>
+    ) => {
+      state.user.userHotels.push(action.payload);
     },
 
     toggleIsLoginLoading: (state, action: PayloadAction<boolean>) => {

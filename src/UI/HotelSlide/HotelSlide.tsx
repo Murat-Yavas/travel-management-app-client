@@ -4,6 +4,8 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { Hotel } from "../../redux/slices/Hotel";
 import { FaRegStar } from "react-icons/fa";
 import Rating from "react-rating";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { registerHotel } from "../../redux/api/UserApiCall";
 
 type HotelProps = {
   hotel: Hotel;
@@ -11,6 +13,12 @@ type HotelProps = {
 
 const HotelSlide = ({ hotel }: HotelProps) => {
   const [isShowOtherDetails, setIsShowOtherDetails] = useState(false);
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const handleRegister = (hotelId: number) => {
+    registerHotel(dispatch, user.id, hotelId);
+  };
 
   return (
     <div key={hotel.id} className={`${styles["hotel-card"]} mb-4 `}>
@@ -97,6 +105,7 @@ const HotelSlide = ({ hotel }: HotelProps) => {
           </div>
           <div className={`${styles["footer-slide"]} flex justify-end`}>
             <button
+              onClick={() => handleRegister(hotel.id)}
               className={`${styles["close-button-footer"]}  bg-lime-300 hover:bg-lime-500`}
             >
               Select Your Room
