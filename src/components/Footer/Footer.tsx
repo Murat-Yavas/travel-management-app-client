@@ -59,7 +59,7 @@ const Footer = () => {
           </div>
           <div className={`${styles["footer-element"]}`}>Win an Adventure</div>
           <div className={`${styles["footer-element"]}`}>
-            Why should I use TrApple?
+            Why should I use Tripple?
           </div>
           <div className={`${styles["footer-element"]}`}>
             After your booking

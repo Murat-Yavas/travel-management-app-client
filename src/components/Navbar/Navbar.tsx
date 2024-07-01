@@ -24,7 +24,7 @@ const Navbar = () => {
   return (
     <nav className={`${styles.header} bg-lime-50 main-padding`}>
       <div className={`${styles.logo}`}>
-        <span>TrApple</span>
+        <span>Tripple</span>
       </div>
 
       <div className={`${styles["header-links"]} hidden md:flex`}>
