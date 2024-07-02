@@ -20,6 +20,7 @@ To run this project, follow below!
 ![preview](src/assets/p2.PNG)
 ![preview](src/assets/p3.PNG)
 ![preview](src/assets/p4.PNG)
+![preview](src/assets/p5.PNG)
 
 # React + TypeScript + Vite
 
